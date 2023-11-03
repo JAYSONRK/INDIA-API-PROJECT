@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="flag.css">
+    <title>Flag</title>
+</head>
+<body>
+    <div class="container">
+        
+    </div>
+   <script>
+   const container = document.querySelector('.container');
+   const request = new XMLHttpRequest;
+   request.open('GET', 'https://restcountries.com/v3.1/name/Republic%20of%20India');
+   request.send();
+   request.addEventListener('load', function () {
+    const [data] = JSON.parse(this.responseText);
+    console.log(data);
+    const htmlDATA =  `<div class="card">
+        <div class="top">
+            <picture>
+                <img src="${data.flags.png}" alt="flag">
+            </picture>
+            <h2>${data.name.nativeName.hin.common}</h2>
+            <p>capital:${data.capital}</p>
+        </div>
+        <div class="bottom">
+            <ul>
+                <li>${data.languages.hin}<br><span>Native Language</span></li>
+                <li>${data.population}<br><span>Population</span></li>
+                <li>${data.area}<br><span>Area&nbsp;m<sup>2</sup></span></li>
+            </ul>
+        </div>  
+    </div>`;
+    container.insertAdjacentHTML('afterbegin', htmlDATA);
+   });
+   </script>
+</body>
+</html>
+
